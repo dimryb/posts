@@ -5,8 +5,8 @@ object WallService {
     private var id: Long = 0
 
     fun add(post: Post): Post {
-        posts += post.copy(id = this.id)
         id++
+        posts += post.copy(id = this.id)
         return posts.last()
     }
 
