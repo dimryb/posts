@@ -1,7 +1,7 @@
 package ru.netology
 
 data class Post(
-    val id: Int,
+    val id: Long,
     val ownerId: Int,
     val fromId: Int,
     val createdBy: Int,
@@ -27,4 +27,7 @@ data class Post(
     val postponedId: Int,
 ) {
 
+    fun like(): Likes{
+        return likes.copy(count = likes.count + 1)
+    }
 }
