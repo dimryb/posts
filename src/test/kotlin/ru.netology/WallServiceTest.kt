@@ -43,30 +43,4 @@ class WallServiceTest {
         assertEquals(0, lastPost1.id)
         assertEquals(1, lastPost2.id)
     }
-
-//    @Test
-//    fun likeById_addId1() {
-//        val testedPostId: Long = 1
-//        WallService.add(newEmptyPost().copy(testedPostId))
-//
-//        val likes1 = WallService.likeById(testedPostId)
-//
-//        assertNotNull(likes1)
-//        assertEquals(1, likes1?.count)
-//
-//        val likes2 = WallService.likeById(testedPostId)
-//
-//        assertNotNull(likes2)
-//        assertEquals(2, likes2?.count)
-//    }
-
-//    @Test
-//    fun likeById_addInvalidId() {
-//        val testedPostId: Long = 10
-//        WallService.add(newEmptyPost().copy(3))
-//
-//        val likes = WallService.likeById(testedPostId)
-//
-//        assertNull(likes)
-//    }
 }

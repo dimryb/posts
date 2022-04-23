@@ -11,14 +11,4 @@ object WallService {
     }
 
 
-
-//    fun likeById(id: Long): Likes? {
-//        for ((index, post) in posts.withIndex()) {
-//            if (post.id == id) {
-//                posts[index] = post.copy(likes = post.like())
-//                return posts[index].likes
-//            }
-//        }
-//        return null
-//    }
 }
