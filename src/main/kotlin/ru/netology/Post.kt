@@ -1,33 +1,38 @@
 package ru.netology
 
 data class Post(
-    val id: Long,
-    val ownerId: Int,
-    val fromId: Int,
-    val createdBy: Int,
-    val date: Int,
-    val text: String,
-    val replyOwnerId: Int,
-    val replyPostId: Int,
-    val friendsOnly: Boolean,
-    val comments: Comments,
-    val copyright: Copyright,
-    val likes: Likes,
-    val reposts: Reposts,
-    val views: Views,
-    val postType: String,
-    val signedId: Int,
-    val canPin: Boolean,
-    val canDelete: Boolean,
-    val canEdit: Boolean,
-    val isPinned: Boolean,
-    val markedAsAdd: Boolean,
-    val isFavorite: Boolean,
-    val donut: Donut,
-    val postponedId: Int,
-) {
-
-//    fun like(): Likes{
-//        return likes.copy(count = likes.count + 1)
-//    }
-}
+    val id: Long = 0,
+    val ownerId: Int = 0,
+    val fromId: Int = 0,
+    val createdBy: Int = 0,
+    val date: Int = 0,
+    val text: String = "",
+    val replyOwnerId: Int = 0,
+    val replyPostId: Int = 0,
+    val friendsOnly: Boolean = false,
+    val comments: Comments = Comments(
+        count = 0,
+        canPost = false,
+        groupsCanPost = false,
+        canClose = false,
+        canOpen = false),
+    val copyright: Copyright = Copyright(id = 0, link = "", name = "", type = ""),
+    val likes: Likes = Likes(count = 0, userLikes = false, canLikes = false, canPublish = false),
+    val reposts: Reposts = Reposts(count = 0, userReposted = false),
+    val views: Views = Views(counts = 0),
+    val postType: String = "",
+    val signedId: Int = 0,
+    val canPin: Boolean = false,
+    val canDelete: Boolean = false,
+    val canEdit: Boolean = false,
+    val isPinned: Boolean = false,
+    val markedAsAdd: Boolean = false,
+    val isFavorite: Boolean = false,
+    val donut: Donut = Donut(
+        isDonut = false,
+        paidDuration = 0,
+        placeholder = Placeholder(),
+        canPublishFreeCopy = false,
+        editMode = ""),
+    val postponedId: Int = 0,
+)

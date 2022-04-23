@@ -5,42 +5,43 @@ import org.junit.Assert.*
 
 class WallServiceTest {
 
-    private fun newEmptyPost(): Post {
-        return Post(
-            id = 0,
-            ownerId = 0,
-            fromId = 0,
-            createdBy = 0,
-            date = 0,
-            text = "",
-            replyOwnerId = 0,
-            replyPostId = 0,
-            friendsOnly = false,
-            comments = Comments(0, false, false, false, false),
-            copyright = Copyright(0, "", "", ""),
-            likes = Likes(0, false, false, false),
-            reposts = Reposts(0, false),
-            views = Views(0),
-            postType = "",
-            signedId = 0,
-            canPin = false,
-            canDelete = false,
-            canEdit = false,
-            isPinned = false,
-            markedAsAdd = false,
-            isFavorite = false,
-            donut = Donut(false, 0, Placeholder(), false, ""),
-            postponedId = 0,
-        )
-    }
-
     @Test
     fun add_incrementPostId() {
-        val post = newEmptyPost()
-        val lastPost1 = WallService.add(post)
-        val lastPost2 = WallService.add(post)
+        val service = WallService.clean()
+        val lastPost1 = service.add(Post(text = "Post 0"))
+        val lastPost2 = service.add(Post(text = "Post 1"))
 
         assertEquals(0, lastPost1.id)
         assertEquals(1, lastPost2.id)
+        assertEquals("Post 0", lastPost1.text)
+        assertEquals("Post 1", lastPost2.text)
+    }
+
+    @Test
+    fun update_newText() {
+        val service = WallService.clean()
+        service.add(Post(text = "Post 0"))
+        val post = service.add(Post(text = "Initial test", ownerId = 123, date = 567))
+        service.add(Post(text = "Post 2"))
+        service.add(Post(text = "Post 3"))
+        service.add(Post(text = "Post 4"))
+
+        val update = Post(id = post.id, text = "Update text")
+        val result = service.update(update)
+        assertTrue(result)
+    }
+
+    @Test
+    fun update_newTextNotUpdate() {
+        val service = WallService.clean()
+        service.add(Post(text = "Post 0"))
+        val post = service.add(Post(text = "Initial test", ownerId = 123, date = 567))
+        service.add(Post(text = "Post 2"))
+        service.add(Post(text = "Post 3"))
+        service.add(Post(text = "Post 4"))
+
+        val update = Post(id = 5, text = "Update text")
+        val result = service.update(update)
+        assertFalse(result)
     }
 }

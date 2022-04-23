@@ -10,5 +10,19 @@ object WallService {
         return posts.last()
     }
 
+    fun update(post: Post): Boolean {
+        for ((index, postFromArray) in posts.withIndex()) {
+            if (post.id == postFromArray.id) {
+                posts[index] = post.copy(ownerId = postFromArray.ownerId, date = postFromArray.date)
+                return true
+            }
+        }
+        return false
+    }
 
+    fun clean(): WallService {
+        posts = emptyArray()
+        id = 0
+        return this
+    }
 }
