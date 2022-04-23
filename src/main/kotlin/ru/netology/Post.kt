@@ -27,7 +27,7 @@ data class Post(
     val postponedId: Int,
 ) {
 
-    fun like(): Likes{
-        return likes.copy(count = likes.count + 1)
-    }
+//    fun like(): Likes{
+//        return likes.copy(count = likes.count + 1)
+//    }
 }

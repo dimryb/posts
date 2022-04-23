@@ -35,12 +35,12 @@ class PostTest {
         )
     }
 
-    @Test
-    fun like() {
-        val likes = newEmptyPost().like()
-
-        assertEquals(1, likes.count)
-    }
+//    @Test
+//    fun like() {
+//        val likes = newEmptyPost().like()
+//
+//        assertEquals(1, likes.count)
+//    }
 
     @Test
     fun getId() {
