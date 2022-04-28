@@ -22,6 +22,7 @@ data class Post(
     val views: Views = Views(counts = 0),
     val postType: String = "",
     val postSource: PostSource? = null,
+    val attachments: ArrayList<Attachment>? = null,
     val geo: Geo? = null,
     val signedId: Int = 0,
     val copyHistory: ArrayList<Post>? = null,
