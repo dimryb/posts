@@ -1,15 +1,15 @@
 package ru.netology
 
 data class File(
-    val id: Int,
-    val ownerId: Int,
-    val title: String,
-    val size: Int,
-    val ext: String,
-    val url: String,
-    val date: Int,
-    val typeFile: Int,
-    val preview: PreviewFile?,
+    val id: Int = 0,
+    val ownerId: Int = 0,
+    val title: String = "",
+    val size: Int = 0,
+    val ext: String = "",
+    val url: String = "",
+    val date: Int = 0,
+    val typeFile: Int = 0,
+    val preview: PreviewFile? = null,
 ){
     data class PreviewFile(
         var photo: Photo?,
@@ -18,7 +18,7 @@ data class File(
     )
 
     data class Photo(
-        var sizes: ArrayList<PhotoSize>?,
+        var sizes: List<PhotoSize>?,
     )
 
     data class Graffiti(
@@ -29,7 +29,7 @@ data class File(
 
     data class AudioMessage(
         var duration: Int,
-        var waveform: ArrayList<Int>,
+        var waveform: List<Int>,
         var linkOgg: String?,
         var linkMp3: String?,
     )

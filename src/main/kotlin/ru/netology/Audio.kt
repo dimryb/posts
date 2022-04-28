@@ -1,16 +1,16 @@
 package ru.netology
 
 data class Audio(
-    val id: Int,
-    val ownerId: Int,
-    val artist: String,
-    val title: String,
-    val duration: Int,
-    val url: String,
-    val lyricsId: Int?,
-    val albumId: Int?,
-    val genreId: Int,
-    val date: Int,
-    val noSearch: Boolean,
-    val isHq: Boolean,
+    val id: Int = 0,
+    val ownerId: Int = 0,
+    val artist: String = "",
+    val title: String = "",
+    val duration: Int = 0,
+    val url: String = "",
+    val lyricsId: Int? = null,
+    val albumId: Int? = null,
+    val genreId: Int = 0,
+    val date: Int = 0,
+    val noSearch: Boolean = false,
+    val isHq: Boolean = false,
 )

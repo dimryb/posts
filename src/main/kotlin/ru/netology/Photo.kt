@@ -7,7 +7,7 @@ data class Photo (
     val userId: Int? = null,
     val text: String = "",
     val date: Int = 0,
-    val sizes: ArrayList<CopySize>? = null,
+    val sizes: List<CopySize>? = null,
     val width: Int? = 0,
     val height: Int? = 0,
 ){
