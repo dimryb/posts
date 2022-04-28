@@ -1,5 +1,13 @@
 package ru.netology
 
 fun main() {
-    println("Main")
+    val attachment: Attachment = AttachmentVideo(Video())
+
+    println("Is " + when (attachment){
+        is AttachmentAudio -> "AttachmentAudio"
+        is AttachmentVideo -> "AttachmentVideo"
+        is AttachmentFile -> TODO()
+        is AttachmentLink -> TODO()
+        is AttachmentPhoto -> TODO()
+    } + ", type: ${attachment.type}")
 }
