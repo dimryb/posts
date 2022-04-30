@@ -38,4 +38,28 @@ class WallServiceTest {
         val result = service.update(update)
         assertFalse(result)
     }
+
+    @Test
+    fun update_addingAttachments(){
+        val service = WallService.clean()
+        val attachments = listOf(
+            AttachmentAudio(audio = Audio()),
+            AttachmentFile(file = File()),
+            AttachmentLink(link = Link()),
+            AttachmentPhoto(photo = Photo()),
+            AttachmentVideo(video = Video()),
+        )
+        val post = service.add(Post(attachments = attachments))
+
+        for (i in attachments.indices) {
+            when (val attachment = post.attachments?.get(i)) {
+                is AttachmentAudio -> assertEquals("audio", attachment.type)
+                is AttachmentFile -> assertEquals("file", attachment.type)
+                is AttachmentLink -> assertEquals("link", attachment.type)
+                is AttachmentPhoto -> assertEquals("photo", attachment.type)
+                is AttachmentVideo -> assertEquals("video", attachment.type)
+                else -> assert(false)
+            }
+        }
+    }
 }
