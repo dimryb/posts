@@ -62,4 +62,20 @@ class WallServiceTest {
             }
         }
     }
+
+    @Test
+    fun add_createComment(){
+        val service = WallService.clean()
+
+        service.add(Post(text = "Post 0"))
+        service.createComment(ownerId = 1, postId = 1, message = "New comment")
+    }
+
+    @Test(expected = PostNotFoundException::class)
+    fun showThrow_createComment(){
+        val service = WallService.clean()
+
+        service.add(Post(text = "Post 0"))
+        service.createComment(ownerId = 1, postId = 2, message = "New comment")
+    }
 }
