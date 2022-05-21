@@ -29,26 +29,9 @@ object WallService {
         return this
     }
 
-    fun createComment(
-        ownerId: Long,
-        postId: Long = 0,
-        fromGroup: Int? = null,
-        message: String,
-        replyToComment: Int? = null,
-        attachment: List<Attachment> = emptyList(),
-        stickerId: Int = 0,
-        guid: String = "",
-    ) {
+    fun createComment(comment: Comment) {
         val post: Post =
-            posts.find { it.id == postId } ?: throw PostNotFoundException("Post not found: $postId")
-
-        commentId++
-        val comment = Comment(
-            id = commentId,
-            fromId = ownerId,
-            text = message,
-            attachments = attachment,
-        )
+            posts.find { it.id == comment.postId } ?: throw PostNotFoundException("Post not found: $comment.postId")
         comments += comment
     }
 }
