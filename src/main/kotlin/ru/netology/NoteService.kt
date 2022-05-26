@@ -1,12 +1,12 @@
 package ru.netology
 
-object NoteService: CrudService<Note> {
+object NoteService : CrudService<Note> {
     private var id: Long = 0
     private val notes = sortedSetOf<Note>({ o1, o2 -> o1.id.compareTo(o2.id) })
 
-    override fun add(note: Note): Long {
+    override fun add(entity: Note): Long {
         id++
-        notes.add(note.copy(id = this.id))
+        notes.add(entity.copy(id = this.id))
         return id
     }
 
@@ -18,10 +18,11 @@ object NoteService: CrudService<Note> {
         }
     }
 
-    override fun edit(note: Note) {
-        val oldNote = getById(note.id)
+    override fun edit(entity: Note) {
+        val oldNote = getById(entity.id)
+        if (entity.isDelete) throw RuntimeException("The deleted item is not editable")
         notes.remove(oldNote)
-        notes.add(note)
+        notes.add(entity)
     }
 
     override fun read(): List<Note> {
@@ -35,10 +36,17 @@ object NoteService: CrudService<Note> {
     }
 
     override fun restore(id: Long) {
-        val note = getById(id)
-        if (note.isDelete) {
-            notes.remove(note)
-            notes.add(note.copy(isDelete = false))
-        }
+        throw RuntimeException("This 'restore' method is not supported")
+//        val note = getById(id)
+//        if (note.isDelete) {
+//            notes.remove(note)
+//            notes.add(note.copy(isDelete = false))
+//        }
+    }
+
+    fun clean(): NoteService {
+        notes.clear()
+        id = 0
+        return this
     }
 }
