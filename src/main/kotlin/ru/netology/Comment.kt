@@ -19,7 +19,9 @@ data class Comment(
         canPost = false,
         showReplyButton = false,
         groupsCanPost = false,
-    )
+    ),
+    val ownerId: Long = 0,
+    val isDelete: Boolean = false,
 ) {
     data class Donut(
         val isDon: Boolean,
