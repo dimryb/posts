@@ -3,7 +3,7 @@ package ru.netology
 import org.junit.Test
 
 import org.junit.Assert.*
-import java.lang.RuntimeException
+import kotlin.RuntimeException
 
 class NoteServiceTest {
 
@@ -75,8 +75,8 @@ class NoteServiceTest {
         assertTrue(note.text == testText)
     }
 
-    @Test(expected = RuntimeException::class)
-    fun getById_badId(){
+    @Test(expected = NoteServiceExceptions::class)
+    fun getById_badId() {
         val service = NoteService.clean()
 
         service.add(Note(text = "text1"))
@@ -88,12 +88,82 @@ class NoteServiceTest {
         service.getById(testBadId)
     }
 
-    @Test(expected = RuntimeException::class)
-    fun restore() {
+    @Test(expected = NoteServiceExceptions::class)
+    fun restore_normal() {
         val service = NoteService.clean()
 
         val id = service.add(Note(text = "text1"))
         service.delete(id)
         service.restore(id)
+    }
+
+    @Test
+    fun createComment_normal() {
+        val service = NoteService.clean()
+
+        val nodeId = service.add(Note(text = "text1"))
+        val node = service.getById(nodeId)
+        val commentId = service.createComment(Comment(ownerId = node.id))
+
+        assertTrue(commentId == 1L)
+        assertTrue(service.getComments(node.id).isNotEmpty())
+    }
+
+    @Test(expected = NoteServiceExceptions::class)
+    fun createComment_badOwnerId() {
+        val service = NoteService.clean()
+
+        service.add(Note(text = "text1"))
+        service.createComment(Comment(ownerId = 10L))
+    }
+
+    @Test
+    fun deleteComment_normal(){
+        val service = NoteService.clean()
+
+        val nodeId = service.add(Note(text = "text1"))
+        val node = service.getById(nodeId)
+        val commentId = service.createComment(Comment(ownerId = node.id, text = "comment"))
+        val comment = service.getComments(node.id).find { it.id == commentId } ?: throw RuntimeException("Fault")
+
+        assertTrue(service.getComments(node.id).isNotEmpty())
+
+        service.deleteComment(comment)
+
+        assertTrue(service.getComments(node.id).isEmpty())
+    }
+
+    @Test
+    fun editComment_normal(){
+        val service = NoteService.clean()
+
+        val nodeId = service.add(Note(text = "text1"))
+        val node = service.getById(nodeId)
+        val commentId = service.createComment(Comment(ownerId = node.id, text = "comment"))
+        val comment = service.getComments(node.id).find { it.id == commentId } ?: throw RuntimeException("Fault")
+
+        val newTextComment = "new comment"
+        service.editComment(comment.copy(text = newTextComment))
+
+        val commentNewText = service.getComments(node.id).find { it.id == commentId } ?: throw RuntimeException("Fault")
+
+        assertTrue(commentNewText.text == newTextComment)
+    }
+
+    @Test
+    fun restoreComment_normal(){
+        val service = NoteService.clean()
+        val node = service.getById(service.add(Note(text = "text1")))
+        val commentId = service.createComment(Comment(ownerId = node.id, text = "comment"))
+        val comment = service.getComments(node.id).find { it.id == commentId } ?: throw RuntimeException("Fault")
+
+        service.deleteComment(comment)
+        service.restoreComment(comment)
+
+        assertTrue(service.getComments(node.id).isNotEmpty())
+
+        val restoredComment = service.getComments(node.id).find { it.id == commentId } ?: throw RuntimeException("Fault")
+        assertTrue(restoredComment.text == comment.text)
+        assertTrue(restoredComment.id == comment.id)
     }
 }
